@@ -1,10 +1,8 @@
 package com.example.QuizApp.Controller;
 
-import com.example.QuizApp.Question;
+import com.example.QuizApp.models.Question;
 import com.example.QuizApp.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +25,7 @@ public class QuestionController {
     }
 
     @PostMapping("add")
-    public String addQuestion(@RequestBody Question question){
+    public ResponseEntity <String>addQuestion(@RequestBody Question question){
         return questionService.addQuestion(question);
     }
 

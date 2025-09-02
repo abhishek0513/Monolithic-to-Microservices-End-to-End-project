@@ -1,7 +1,7 @@
 package com.example.QuizApp.Service;
 
 import com.example.QuizApp.DAO.QuestionDAO;
-import com.example.QuizApp.Question;
+import com.example.QuizApp.models.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +29,8 @@ public class QuestionService {
         return questionDAO.findByCategoryIgnoreCase(category);
     }
 
-    public String addQuestion(Question question) {
+    public ResponseEntity<String> addQuestion(Question question) {
         questionDAO.save(question);
-        return "success";
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 }
