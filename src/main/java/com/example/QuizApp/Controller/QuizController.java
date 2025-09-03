@@ -2,12 +2,15 @@ package com.example.QuizApp.Controller;
 
 
 import com.example.QuizApp.Service.QuizService;
+import com.example.QuizApp.models.Question;
+import com.example.QuizApp.models.QuestionWrapper;
+import com.example.QuizApp.models.Responses;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("quiz")
@@ -18,4 +21,16 @@ public class QuizController {
     public ResponseEntity<String>createQuiz(@RequestParam String category, @RequestParam int numQ, @RequestParam String title){
         return quizService.createQuiz(category, numQ, title);
     }
+
+    @GetMapping("get/{id}")
+    public ResponseEntity<List<QuestionWrapper>>getQuizQuestions(@PathVariable int id){
+        return quizService.getQuizQuestions(id);
+    }
+
+    @PostMapping("submit/{id}")
+    public ResponseEntity<Integer> submitQuiz(@PathVariable int id, @RequestBody List<Responses> responses) {
+        return quizService.calculateResult(id, responses);
+    }
+
+
 }
